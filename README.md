@@ -1,180 +1,180 @@
-# Team 01 – Frankfurt Impact Challenge (FES Hackathon 2026)
+<div align="center">
 
-**Mainsam** ist unsere App: eine Anwendung für Frankfurt, die nachhaltiges Verhalten sichtbar macht und belohnt.
-Ein Chamäleon (Leon) führt durch Bus und Bahn (Transdev/traffiQ), Mehrweg (Vytal), Lebensmittelrettung
-(foodsharing) und Sauberkeit (FES). Der lauffähige Code liegt in **`apps/mobile/`**.
+# GeMainsam
 
-## Verbindung in Expo Go
+**Nachhaltige Entscheidungen im Frankfurter Alltag: leicht zu finden, leicht zu tun, leicht nachzuvollziehen.**
 
-`npm run dev:lan` in `apps/mobile` startet Backend und Expo zusammen und verwendet dieselbe private LAN-Adresse für beide. Der Start wählt physische Netzwerkanschlüsse vor VPN-Adressen. Mac und Handy bleiben im selben Hotspot/WLAN; nach einem Netzwerkwechsel den gemeinsamen Startbefehl neu starten und den neuen QR scannen. iOS muss Expo Go Zugriff auf das lokale Netzwerk erlauben. Es wird kein öffentlicher Tunnel geöffnet.
+🥈 2. Platz beim FES Hackathon 2026, Frankfurt Impact Challenge. In 24 Stunden von Team 01 gebaut.
 
-Expo SDK 57 meldet Netzfehler als `FetchError`, nicht nur als `TypeError`. Die App behandelt beide, behält bei Verbindungsfehlern die Sitzung und versucht Leseanfragen einmal erneut. Schreibanfragen werden nie automatisch wiederholt: Nach einem Antwortabbruch ist der Speicherstatus unklar und muss zuerst durch Neuladen geprüft werden. „Erneut verbinden“ prüft jetzt eine tatsächliche Serverantwort. Auch die KI-Erfassung zeigt bei Netzwerkfehlern eine verständliche Meldung; die manuelle Eingabe bleibt verfügbar. Dauerhafte WLAN-/Internetausfälle kann der Client nicht verhindern.
+[![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=flat-square&logo=react&logoColor=black)](#stack)
+[![Expo SDK 57](https://img.shields.io/badge/Expo_SDK_57-000020?style=flat-square&logo=expo&logoColor=white)](#selbst-starten)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](#stack)
+[![Plattform](https://img.shields.io/badge/Plattform-iOS_%7C_Android_%7C_Web-555?style=flat-square)](#selbst-starten)
 
-## Aktueller Stand: Verkehrsplanung, QR-Nachweise und Feedback
+</div>
 
-- **traffiQ-Daten:** „Impact“ oder „Gemeinsam“ → „Verkehrsdaten“. Die neue Ansicht zeigt Fahrgastzahlen, Auslastung je Halt, Spitzen und zeitgewichtete Kapazitätsnutzung je Fahrt. Originale U7-Zählungen und simulierte Fahrten bleiben getrennt. Tagesgang und Haltestellenanfragen sind Nachfrageindikatoren, keine gezählten Fahrgäste. Für Bus/Straßenbahn fehlen entsprechende AFZ-Zählungen; aus der kleinen Stichprobe folgt keine belastbare Streichung einer Linie.
-- **Vytal:** Scannen oder Code eingeben, fertig. Jeder Behälter hat serverweit höchstens eine offene Ausleihe, auch beim erneuten Scan durch dieselbe Person. Die Rückgabeoption wurde aus der Nutzeroberfläche entfernt. Schadens-/Verlustmeldungen bleiben verfügbar. Historische Rückgabebelege und der geschützte Händleradapter bleiben für bestehende Daten erhalten; echte Vytal-Konten sind weiterhin nicht angebunden.
-- **Foodsharing:** Verteiler/Saver zeigt den kurz gültigen Übergabe-QR oder vier Ziffern, die abholende Person scannt/bestätigt den Empfang. Der statische Regal-QR öffnet den Ort mit Foto, Audio und manueller Erfassung, erzeugt allein aber keine Punkte. Die Seite „Regalmeldungen & Betreuung“ ist entfernt. Alte persönliche Abholcodes müssen nach dem Update neu ausgestellt werden.
-- **FES-Aktionen:** „Mitmachen“ merkt nur die Anmeldung. Zwei Personen am Aktionsort tauschen einen zwei Minuten gültigen, einmaligen QR aus. Der Server prüft getrennte Konten, frische Standorte, Gebiet und Zeitfenster. Punkte höchstens einmal je Person/Aktion. Eigene QR-Codes, Wiederholungen, falscher Ort und abgelaufene Codes geben keine neuen Punkte. Geteilte Aktions-QRs können auch auf einem zweiten Gerät über „Scannen“ geöffnet werden. Gäste erhalten einen Beleg ohne einlösbare Punkte. Geräte-Standorte und gegenseitige Bestätigung sind Plausibilitätsnachweise, keine externe FES-Bestätigung.
-- **Feedback:** Ein gemeinsames Fenster für alle Bereiche, vorbereitete Videos ohne vorgeschaltetes Konfetti, animierte Aktionspunkte und Kontostand, lesbare Schaltflächen und immer „Schließen“. Kein automatisches Verschwinden. Leons Weltgrafik ist vollständig und unbewegt.
-- **Entfernt:** FES-Behälter auch aus Karte/Liste, Journal-Seite und die Prämie „Gratis-Ausleihe Vytal“. Standortberechtigung bleibt auf die Nutzung der App beschränkt.
+<br>
 
-**Nach dem Update Expo und Trust-Server neu starten:** `cd apps/mobile` → `npm run dev:lan`. Konten und Serverbelege bleiben erhalten. Alte lokale Sofortpunkte für FES-Anmeldungen/Teilnahmen werden ohne Servernachweis nicht mehr als gültige Punkte gerechnet.
+<div align="center">
+  <a href="docs/media/gemainsam-demo.mp4">
+    <img src="docs/media/gemainsam-demo.gif" width="720" alt="Leon das Chamäleon führt durch die App: Stadtkarte mit Angeboten in der Nähe, Lebensmittelrettung mit KI-Fotoerfassung, und die Impact-Ansicht mit eingespartem CO2e">
+  </a>
+  <p><sub>Klick auf die Vorschau für das vollständige Demo-Video</sub></p>
+</div>
 
-## Neu: ein Einstieg, Gastmodus und kurze Übergabecodes
+---
 
-Nach dem Tutorial: **Benutzername, E-Mail und Passwort** für einen gemeinsamen Mainsam-Zugang oder **Ohne Anmeldung weiter**. Innerhalb von Foodsharing und Mehrweg gibt es keine weiteren Passwortformulare. Bestehende Serverkonten funktionieren weiter mit Benutzername und Passwort; E-Mail ist bei neuen Registrierungen erforderlich und bleibt privat. Gastmeldungen/Zusagen bleiben beim späteren Einrichten eines Kontos erhalten.
+## Die Idee
 
-- **Orts-QR:** Regal, Angebot oder Restaurant direkt unter „Scannen → Regal, Verteiler oder Restaurant scannen“ öffnen. Der Aufkleber gibt allein keine Punkte.
-- **Übergabe:** Persönlichen QR zeigen oder vier Ziffern nennen. Der Code gilt nur für die ausgewählte Aktion, verfällt nach wenigen Minuten und kann nur vom berechtigten Gegenüber eingelöst werden. Fünf falsche PIN-Versuche sperren diese PIN-Prüfung; die Zähler überleben Neustarts.
-- **Regal:** Foto, Audio oder manueller Eintrag bleiben verfügbar, auch als Gast. Öffentliche Eigenmeldungen geben keine bestätigten Punkte; wiederholtes Scannen eines Regal-QR gibt keine Punkte.
-- **Gäste:** Essen teilen/abholen und Belege nutzen ohne Registrierung. Gastübergaben erzeugen für beide Seiten keine einlösbaren Punkte; sonst ließen sich mit immer neuen Gastzugängen Punkte sammeln. Dies ersetzt weder Identitätsprüfung noch eine Sperre gegen abgesprochene Täuschungen.
-- **Video:** Der Expo-Video-Hook übernimmt die Freigabe. Die App ruft beim Unmount kein `pause()` auf einem bereits freigegebenen Player mehr auf; die vier Clips werden vorbereitet und beim Öffnen des Feedbackfensters direkt abgespielt.
+Nachhaltig handeln scheitert in der Stadt selten am Willen, sondern an drei
+Dingen: Man weiß nicht, was gerade in der Nähe möglich ist. Man weiß hinterher
+nicht, ob es etwas gebracht hat. Und wenn doch etwas belohnt wird, belohnt es
+meistens die falsche Sache.
 
-Ein gemeinsamer Startbefehl (alte Expo-/Server-Terminals zuvor mit **Ctrl+C** stoppen):
+GeMainsam bündelt die Angebote, die es in Frankfurt ohnehin gibt — Bus und Bahn,
+Mehrwegbehälter, gerettete Lebensmittel, saubere Plätze — an einem Ort, prüft
+jede gemeldete Aktion gegen echte Daten und rechnet zwei Dinge getrennt aus:
+**was es der Umwelt gebracht hat** und **was es dir bringt**. Durch die App
+führt Leon, ein Chamäleon, das die Oberfläche je nach Bereich einfärbt und
+jede Punktgutschrift erklärt.
 
-```bash
-cd apps/mobile
-npm run dev:lan
+---
+
+## Was man damit machen kann
+
+- 🚌 **Fahrt statt Fahrt mit dem Auto** — Weg mit Bus oder Bahn zurücklegen; die
+  App gleicht den GPS-Verlauf gegen den Fahrplan ab und sagt, wie sicher sie
+  sich ist.
+- 🥕 **Lebensmittel retten** — Körbe und Fairteiler von foodsharing finden,
+  Übergabe per QR-Code bestätigen, Inhalt per Foto erfassen.
+- ♻️ **Mehrweg nutzen** — Vytal-Behälter ausleihen und zurückgeben, statt
+  Einweg wegzuwerfen.
+- 🧹 **Die Stadt sauber halten** — Verschmutzungen melden und an Aktionen
+  teilnehmen.
+- 🌍 **Wirkung sehen** — eingespartes CO2e und gerettete Kilogramm getrennt von
+  den Punkten, mit Quelle hinter jeder Zahl.
+
+---
+
+## Fair konstruiert
+
+Das ist der Teil, an dem die meisten Belohnungs-Apps scheitern, und der Teil,
+über den wir am längsten gestritten haben.
+
+- **Punkte und Impact sind zwei Währungen.** Impact ist Physik: Kilogramm CO2e,
+  Kilogramm Lebensmittel. Punkte sind eine gestaltete Verhaltenswährung —
+  gedeckelt, mit zunehmender Menge abnehmend, nie proportional.
+- **Punkte gibt es für die Entscheidung, nicht für die Strecke oder die Menge.**
+  Sonst lohnt sich die lange Fahrt mehr als die kurze, und das ist genau falsch
+  herum.
+- **Keine Punkte pro Müllstück.** Wer pro Stück zahlt, bekommt Müll — der
+  Kobra-Effekt ist in `konzept/02` ausführlich beschrieben.
+- **Der Nachweisstatus ist ein sichtbarer Multiplikator:** bestätigt 1,0 ·
+  plausibel 0,7 · schwach plausibel 0,4 · selbst angegeben 0,3 · nicht
+  zuordenbar 0,0. Er steht in der App, nicht im Kleingedruckten.
+- **Jede Gutschrift hat ein „Warum"-Sheet** mit Status, Formel, Faktor und
+  Quelle. Man kann jede Zahl bis zu ihrem Ursprung aufklappen.
+- **Keine Rangliste als Hauptmotor.** Gemeinsame Ziele und der Vergleich mit
+  der eigenen Vorwoche. Belohnt wird über Schwellen und Lose, nie über Platz.
+
+Das vollständige Modell: [`konzept/02-PUNKTE-UND-ANTI-FEHLANREIZ.md`](konzept/02-PUNKTE-UND-ANTI-FEHLANREIZ.md).
+
+---
+
+## Wie es gebaut ist
+
+Die App spricht nie direkt mit einer Datenquelle. Dazwischen liegen genau zwei
+Schnittstellen, die in der ersten Stunde festgelegt und danach nur noch
+erweitert wurden:
+
+```
+getOpportunities({lat, lon, radius}) -> Opportunity[]
+award(event: ActionEvent)            -> {points, impact, status, reason[], idempotency_key}
 ```
 
-Das startet den lokalen Server und Expo gemeinsam. Beide werden mit Ctrl+C beendet. Das Handy bleibt im selben privaten WLAN/Hotspot. Alternativ funktionieren weiterhin die zwei Terminals unten. Nach Änderungen am Server **auch den Server neu starten**, Expo-Neuladen allein genügt nicht.
+`award` ist die **einzige** Stelle im Code, die Punkte vergibt. Keine Ausnahme.
+Das klingt nach Bürokratie, hat aber dafür gesorgt, dass die Fairness-Regeln
+oben an einer Stelle stehen und nicht über fünf Screens verstreut sind — und
+dass der `idempotency_key` doppelte Gutschriften bei wackligem Netz verhindert.
 
-[Einrichtung der Regalbetreuung, QR-Formate und Testgrenzen](docs/EINSTIEG-UND-QR-UEBERGABEN.md).
+Der Nachweis für Fahrten läuft über GPS gegen GTFS-Fahrplandaten mit einer
+Konfidenz, nicht über NFC: In Frankfurter Bussen gibt es keine Tags, und ein
+Fundament auf nicht vorhandener Hardware trägt nicht.
 
-## Gemeinsamer App-Stand · 12. September 2026
+Jeder Screen hat einen Mock-Fallback. Fällt im Pitch eine API aus, zeigt der
+Screen trotzdem etwas — als Demo-Daten gekennzeichnet.
 
-Der Main-Stand mit neuem Profil, Onboarding, Impact-/Frankfurt-Ansichten, Mobilitätsexport und Müll-Fotonachweis ist mit den Foodsharing- und Mehrweg-Änderungen aus `imad` zusammengeführt. Die Übergaben, Partnerseite und der bisherige Aktionsüberblick bleiben erreichbar. Die Navigation übernimmt die einheitliche dunkelblaue Gestaltung aus Main und die begrenzte Animation samt zuverlässiger Web-Bedienung aus imad.
+---
 
-- **Foodsharing:** Foto, Audio oder Texteingabe; Posten und Portionszahlen, freie Termine, Zusagen, persönlicher Abhol-QR und Bewertungen. Offene Regale zeigen gemeinsame Momentaufnahmen.
-- **Mehrweg:** Ausleihe erfassen und Schaden melden. Rückgabe ist keine Nutzeroption mehr; bestehende Belege bleiben im Server erhalten.
-- **FES:** Vorher-/Nachher-Fotos mit Zeitfenster, frischem Standort je Foto und Dublettenprüfung; keine Punkte je Müllstück. Standort-/Kamerafehler bleiben sichtbar und erzeugen keinen Nachweis.
-- **Mobilität und Wirkung:** Fahrtansicht aus Main, Wochenfortschritt, Globus und Datenexport bleiben enthalten. Die mobile Punkteberechnung bleibt zentral.
+## Stack
 
-## App starten: zwei Terminals
+| Bereich | Technologie |
+| :-- | :-- |
+| App | React Native, Expo SDK 57, Expo Router, TypeScript |
+| State | zustand |
+| Karte | react-native-maps |
+| Server | Trust-Server unter `apps/trust-server/` |
+| Daten | GTFS Frankfurt + 30 km, foodsharing-API, Vytal, FES |
 
-Voraussetzungen: **Node 22.18 oder neuer**, npm und Expo Go mit Unterstützung für **SDK 57**. Nach dem Pull einmal die festgeschriebenen Pakete installieren. Terminal 1 im Repository:
+---
+
+## Selbst starten
+
+Node **22.18+**, npm und Expo Go mit Unterstützung für **SDK 57**.
 
 ```bash
 cd apps/mobile
 npm ci --include=optional
-npm run trust:lan
+npm run dev:lan
 ```
 
-Terminal 2 ebenfalls vom Repository aus:
+`dev:lan` startet Trust-Server und Expo unter derselben privaten LAN-Adresse.
+Rechner und Handy müssen im selben WLAN sein, unter iOS muss Expo Go Zugriff
+auf das lokale Netzwerk bekommen. Es wird kein öffentlicher Tunnel geöffnet.
 
-```bash
-cd apps/mobile
-npm run start:lan
-```
+Nur im Browser: `npm run web`, für gemeinsame Daten zusätzlich
+`npm run trust:start`. Weitere Startvarianten in
+[`apps/mobile/README.md`](apps/mobile/README.md), der Demo-Ablauf in
+[`apps/mobile/DEMO.md`](apps/mobile/DEMO.md).
 
-Mac und Handy müssen im selben privaten WLAN oder persönlichen Hotspot sein. In den iPhone-Einstellungen für Expo Go **Lokales Netzwerk** erlauben. Den neuen QR-Code mit der iPhone-Kamera scannen und in Expo Go öffnen; den einmaligen Entwicklerhinweis mit **Continue** schließen. Beide Terminals und den Rechner laufen lassen. Öffentliches WLAN kann direkte Geräteverbindungen blockieren. Für diesen Stand ist kein öffentlicher Tunnel eingerichtet.
+---
 
-**Nur `npx expo start` reicht für gemeinsame Übergaben, Ausleihen und FES-Nachweise nicht:** Dafür muss der Server auf Port 8787 erreichbar sein. Die App findet ihn in der Entwicklung über die private Expo-/Metro-Adresse. `EXPO_PUBLIC_TRUST_URL` kann die Serveradresse ausdrücklich setzen; veröffentlichte Builds benötigen einen HTTPS-Endpunkt.
-
-Die [App-Anleitung](apps/mobile/README.md) beschreibt Mikrofonrechte, KI und Startfehler. Bestehende Schlüssel in `apps/mobile/.env` nicht überschreiben oder committen. Die nativen Paketversionen nicht unabhängig vom Expo-SDK aktualisieren.
-
-## Zugänge, Ladenfreigabe und bestehende Daten
-
-Die Anmeldung am App-Einstieg authentifiziert den **Mainsam-Serverzugang**. Das zusätzliche Formular „Meine Daten“ bleibt ein lokales Profilformular und ändert keine Server-Zugangsdaten. Gäste erhalten eine pseudonyme Geräte-Sitzung ohne E-Mail oder Passwort. Derselbe Zugang gilt für Foodsharing und Mehrweg. **Ausloggen** im Profil beendet jetzt auch diese Serversitzung und entfernt deren Anzeigecache. „Lokale Daten löschen“ löscht keine Konten oder Belege auf dem Server.
-
-Ein Ladenkonto muss einmal vom Betreiber einem Store zugeordnet werden. Ohne Freigabe kann es keine Rückgabe-QRs ausstellen. [Einrichtung und genaue Befehle](apps/trust-server/README.md#einmalige-freigabe-einer-lokalen-rücknahmestelle).
-
-Die bestehende Datenbank `apps/trust-server/data/trust.sqlite` behalten. Schema-Erweiterungen erfolgen additiv; Konten, Zusagen und bestätigte Belege werden nicht neu angelegt oder gelöscht. Die App ergänzt neue Profil-/Fotozustände beim Laden; bestätigte Serverbelege bleiben erhalten. Alte Selbstgutschriften bleiben unbestätigt.
-
-## Prüfung vor weiteren Merges
-
-```bash
-cd apps/mobile
-npm run typecheck
-npm run trust:test
-npm run test:proofs
-node tools/check-ai.cjs
-npx expo export --platform ios --platform android --platform web
-```
-
-Die Tests verwenden isolierte Datenbanken und synthetische Konten. `trust:test` deckt Rollen, Zusagen, Bestand, Bewertungen, Händlerfreigaben und einmalige Belege ab; `test:proofs` prüft Zeit, Ort, Dubletten und ungültige Fotonachweise. Der KI-Adaptertest sendet ohne `--live` keine echte KI-Anfrage. Prüfprotokoll und Merge-Entscheidungen: [Main-/imad-Zusammenführung](docs/MAIN-IMAD-INTEGRATION-2026-09-12.md).
-
-**Grenzen:** Mainsam-Rückgaben beenden noch keine echte Vytal-Leihfrist; der autorisierte Händleradapter fehlt. Müllfotos werden lokal plausibilisiert, nicht von FES bestätigt. Karten-/Verkehrs-Fallbacks und historische Angebote bleiben Demo-/Beispieldaten. Exporte und Browserprüfungen ersetzen keinen Kamera-, Mikrofon- und GPS-Test auf einem echten Handy.
-
-## Wo was liegt
+## Was im Repo liegt
 
 | Ordner | Inhalt |
-| --- | --- |
-| `apps/trust-server/` | Persistenter lokaler Server für Foodsharing, Mehrweg und Bewertungen |
-| `apps/mobile/` | Die App (Expo / React Native, iOS + Android + Web). Eigene README mit Details |
-| `konzept/` | Review und Entscheidungen, Master-Prompt, Punktemodell und Anti-Fehlanreiz-Regeln |
-| `docs/` | Status, Verträge, Anforderungen, Quellenprüfungen der Vorarbeit |
-| `Foodsharing API/`, `Mobilitätsdaten/` | Partnerdokumentation und Rohdaten des Veranstalters |
-| `shared/`, `tests/`, `tools/`, `START.ps1` | Ältere Python-Integrationsdemo der Vorarbeit, nicht die App |
+| :-- | :-- |
+| [`apps/mobile/`](apps/mobile/) | die App — Expo, React Native, expo-router |
+| [`apps/trust-server/`](apps/trust-server/) | Server für geteilte Daten und Nachweise |
+| [`konzept/`](konzept/) | Punktemodell, Anti-Fehlanreiz-Analyse, Entscheidungen |
+| [`Mobilitätsdaten/`](Mobilitätsdaten/) | GTFS Frankfurt + 30 km, Haltestellen, Tagesgang |
+| [`Foodsharing API/`](Foodsharing%20API/) | Schema und Anleitung zur foodsharing-API |
+| [`docs/`](docs/) | Dokumentation und Demo-Medien |
+| [`shared/`](shared/) | gemeinsame Typen und Hilfsfunktionen |
 
-Die Punkte- und Fairnessregeln stehen in [`konzept/02-PUNKTE-UND-ANTI-FEHLANREIZ.md`](konzept/02-PUNKTE-UND-ANTI-FEHLANREIZ.md).
-Arbeitsregeln für das Repo und die Bewertungskriterien der Jury stehen in [`CLAUDE.md`](CLAUDE.md).
+---
 
-## Ältere Integrationsdemo (Python)
+## Gut zu wissen
 
-Aus der Vorarbeit liegt zusätzlich eine lokale Python-Demo im Repo. Sie ist **nicht** die App und wird für den
-Pitch nicht gebraucht. Start unter PowerShell mit `.\START.ps1`, danach <http://127.0.0.1:8765>.
-Details und Grenzen: [Status und Tests](docs/STATUS_UND_TESTS.md), [Entscheidungen](docs/ENTSCHEIDUNGEN.md),
-[Anforderungen](docs/ANFORDERUNGEN.md), [Verträge](docs/VERTRAEGE.md), [Rewards und Wirkung](docs/REWARDS_UND_WIRKUNG.md),
-[UX und Demo](docs/UX_UND_DEMO.md).
+- **Das ist ein Hackathon-Prototyp**, gebaut in 24 Stunden. Lauffähig, aber
+  nicht produktionsreif.
+- **Nicht alle Daten sind echt.** Die GTFS-Fahrplandaten und die
+  foodsharing-API sind es. Teile der Mobilitätsdaten
+  (`haltestellen_avg.csv`, `tagesgang_avg.csv`, die Beispieldatensätze) sind
+  synthetisch, Vytal läuft gegen Mocks. In der App ist beides als
+  `Schätzung` oder `Demo-Daten` gekennzeichnet.
+- **Die Emissionsfaktoren sind Schätzungen mit Quelle**, keine Messwerte.
+- **`Foodsharing API/KEYS.txt` liegt in der Git-History dieses Repos.** Die
+  Datei stammt aus dem ursprünglichen Team-Repo und ist dort schon öffentlich.
+  Die Keys gelten als kompromittiert und gehören rotiert.
 
+---
 
-# Daten und API-Dokumentationen für den Hackathon
+## Team
 
-Dieses Repository bündelt die Beispieldaten des Verkehrsverbunds und die Dokumentation der Foodsharing Hackathon API. Die Dokumentation zur Vytal API ist extern verlinkt.
+Gebaut von **Team 01** beim FES Hackathon 2026 in Frankfurt — sechs Leute,
+24 Stunden. Veranstalter war die FES Frankfurter Entsorgungs- und Service GmbH;
+Daten und Schnittstellen kamen von Transdev, traffiQ, Vytal und foodsharing.
 
-## Foodsharing Hackathon API
-
-Die API stellt Teamnutzer, Essenskörbe, Abholanfragen, Abholhistorien und Fairteiler-Standorte bereit. Nutzer, Angebote und Abholungen sind fiktive Testdaten; die Standortdaten beziehen sich auf Frankfurt am Main.
-
-| Dokumentation | Inhalt |
-| --- | --- |
-| [API-Guide](Foodsharing%20API/API-GUIDE.md) | Einstieg, Authentifizierung mit Team-Key, Nutzerauswahl, Verifikation, Endpunkte, Aufrufbeispiele und Fehlerfälle |
-| [Verfügbare Daten](Foodsharing%20API/DATABASE.md) | Übersicht der Datenbestände, persönlichen Abholhistorien, gemeinsamen Beispieldaten und Sichtbarkeit zwischen Teams |
-| [API-Datenobjekte](Foodsharing%20API/SCHEMA.md) | JSON-Felder, Datentypen und Beziehungen der Requests und Antworten |
-| [Testnutzer pro Team](Foodsharing%20API/TEAM-USERS.md) | Verwendung der zwei Testnutzer eines Teams sowie Auswahl und Bearbeitung ihrer Testzustände |
-
-Die Basis-URL lautet `https://app-foodsharing-hackathon.azurewebsites.net`. Die interaktive API-Referenz ist über [Swagger](https://app-foodsharing-hackathon.azurewebsites.net/docs) erreichbar, die maschinenlesbare Spezifikation über [OpenAPI](https://app-foodsharing-hackathon.azurewebsites.net/openapi.json). Geschützte Endpunkte verwenden den von der Organisation vergebenen Team-Key; Details stehen im API-Guide.
-
-## Vytal API
-
-Die externe Integrationsdokumentation findet ihr im [Vytal x FES Hackathon – Technical Documentation](https://app.notion.com/p/vytal-col/Vytal-x-FES-Hackathon-Technical-Documentation-57622b6fddc3821ba7a00156eb4aa4ee).
-
-## Beispieldaten des Verkehrsverbunds
-
-Dieses Repository enthält fünf CSV-Arbeitsdateien und einen GTFS-Fahrplan als 7z-Archiv. Zusätzlich liegt der gesicherte EFA-Originalbestand unter `docs/`. Die Daten beschreiben Fahrgastzählungen, Fahrpläne, Auskunftsanfragen und die Nutzung von Sharing-Angeboten.
-
-Die [Datendokumentation](Mobilitätsdaten/docs/DATENKATALOG.md) beschreibt Inhalt, Spalten, Dateiformate, Zeiträume, Herkunft und bekannte Einschränkungen. Die Verknüpfung der Daten, die Bewertung des Impacts und die Verifikation der Verkehrsmittelnutzung sind Aufgaben der Teilnehmer.
-
-### Herkunft und Einordnung
-
-Nach der mitgelieferten Information des Verkehrsverbunds wurden Beispieldaten sowie Haltestellen- und Tagesverlaufsdaten zum Kalibrieren bereitgestellt. Der beigefügte GTFS-Fahrplan soll die Rekonstruktion der Fahrtwege aus den AFZ-Daten ermöglichen. Für die E-Scooter-Daten nennt der Verkehrsverbund eine Größenordnung von **etwa 30.000 Nutzungen pro Tag**.
-
-Diese Größenordnung ist eine Begleitinformation zum Gesamtbestand. Sie wurde nicht aus dem Testdatensatz ermittelt. Die Datei `e-scooter-beispiel.csv` enthält die 20 gelieferten Fahrrad-Zeilen von `nextbike` sowie 6.720 synthetische Ergänzungen für Bikesharing und E-Scooter. Die Ergänzungen sind an `provider_name=synthetic_bikesharing` bzw. `synthetic_e_scooter` erkennbar. Diese Namen bezeichnen fiktive Simulationsanbieter. Herkunft und Annahmen stehen im [Datenkatalog](Mobilitätsdaten/docs/DATENKATALOG.md#6-e-scooter-beispielcsv).
-
-### Dateien im Überblick
-
-Zeilenzahlen beziehen sich auf Datensätze ohne Kopfzeile. Prüfstand: **10.09.2026**, anhand der vorliegenden Dateien.
-
-| Datei | Umfang | Inhalt und zeitlicher Bezug |
-| --- | ---: | --- |
-| [BeispielAFZ.csv](Mobilitätsdaten/BeispielAFZ.csv) | 1.042 Zeilen, 21 Spalten | Vier originale U7-Fahrten am 30.04.2024 sowie 48 synthetische Fahrten auf U1–U6, U8 und U9 am 15.09.2025 |
-| [BeispielDataSetEFA.csv](Mobilitätsdaten/BeispielDataSetEFA.csv) | 5.699 Zeilen, 15 Spalten | Ausschließlich Frankfurt: 27 Originalzeilen vom 30.04./01.05.2024 und 5.672 synthetische Anfragen am 15.09.2025; je Stunde exakt 1 % von `tagesgang_avg.csv` im synthetischen Teil |
-| [haltestellen_avg.csv](Mobilitätsdaten/haltestellen_avg.csv) | 3.093 Zeilen, 4 Spalten | Durchschnittliche monatliche Anfragen je Haltestelle, teilweise mit Koordinaten |
-| [tagesgang_avg.csv](Mobilitätsdaten/tagesgang_avg.csv) | 24 Zeilen, 2 Spalten | Durchschnittliche tägliche Anfragen nach Stunde 0–23 |
-| [e-scooter-beispiel.csv](Mobilitätsdaten/e-scooter-beispiel.csv) | 6.740 Zeilen, 9 Spalten | 20 Originalzeilen und je 3.360 synthetische Fahrrad-/E-Scooter-Zeilen; fünf Standorte, vier Radien, sieben simulierte Tage ab 07.04.2025 |
-| [GTFS_gefiltert_Frankfurt+30km.7z](Mobilitätsdaten/GTFS_gefiltert_Frankfurt+30km.7z) | 8 Tabellen; 100.483 Fahrten | Fahrplan mit Kalenderdaten vom 12.07. bis 13.12.2025 und Geometrien |
-
-Die Begleitdatei [AFZ_HERKUNFT.json](Mobilitätsdaten/docs/AFZ_HERKUNFT.json) dokumentiert die Herkunft der AFZ-Daten: Original- und Simulationsbestand, ihre CSV-Zeilenbereiche, Zeitbezüge und Prüfsummen.
-
-Für EFA dokumentiert [EFA_HERKUNFT.json](Mobilitätsdaten/docs/EFA_HERKUNFT.json) den Frankfurt-Filter, die Herkunft der Haltestellen, Stundenmengen und Simulationsannahmen. Alle 50 gelieferten Originalzeilen bleiben in [BeispielDataSetEFA_original.csv](Mobilitätsdaten/docs/BeispielDataSetEFA_original.csv) erhalten; 23 davon enthalten Orte außerhalb Frankfurts und sind deshalb nicht in der Arbeitsdatei enthalten. Details stehen im [EFA-Datenkatalog](Mobilitätsdaten/docs/DATENKATALOG.md#3-beispieldatasetefacsv).
-
-### Einordnung der Daten
-
-- Die Dateien beziehen sich auf unterschiedliche Zeiträume. Der GTFS-Fahrplan umfasst Juli bis Dezember 2025; die Originalbeispiele stammen teilweise aus April 2024 bzw. April 2025.
-- Die ergänzten AFZ-, EFA- und Sharing-Werte sind synthetische Testdaten und keine gemessene Nachfrage. Herkunft und Kennzeichnung sind im Datenkatalog beschrieben.
-- Auskunftsanfragen, Fahrgastzählwerte und Sharing-Starts/-Enden sind unterschiedliche Messgrößen. Die Bezugszeiträume der Durchschnittsdateien sind nicht dokumentiert.
-- Die Verkehrsdaten enthalten keine Handy-GPS-Spuren, keine bestätigten individuellen Verkehrsmittelnutzungen und keine Emissionsfaktoren für den Vergleich von ÖPNV und PKW.
-
-Die gelieferten Originalzeilen sind erhalten, bei EFA zusätzlich in der separaten Originalsicherung. Die AFZ- und Sharing-Dateien wurden um synthetische Beispiele ergänzt. Die EFA-Arbeitsdatei wurde auf Frankfurt eingeschränkt und ebenfalls synthetisch ergänzt; Haltestellenmittelwerte, Tagesgang und GTFS-Archiv sind unverändert.
+Dieses Repository ist mein Stand des Teamprojekts. Das Demo-Video stammt von
+meinem Teamkollegen [@Imado30](https://github.com/Imado30). Alle Beteiligten
+stehen in der [Contributors-Liste](https://github.com/Larou123/FES-Hackathon-2026/graphs/contributors).
