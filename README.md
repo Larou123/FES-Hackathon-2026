@@ -9,7 +9,7 @@
 [![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=flat-square&logo=react&logoColor=black)](#stack)
 [![Expo SDK 57](https://img.shields.io/badge/Expo_SDK_57-000020?style=flat-square&logo=expo&logoColor=white)](#selbst-starten)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](#stack)
-[![Plattform](https://img.shields.io/badge/Plattform-iOS_%7C_Android_%7C_Web-555?style=flat-square)](#selbst-starten)
+[![Plattform](https://img.shields.io/badge/Plattform-iOS,_Android,_Web-555?style=flat-square)](#selbst-starten)
 
 </div>
 
